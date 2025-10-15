@@ -1,109 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from minies.pages.dev/nppe/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 27 Sep 2025 05:39:12 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Policy Password tool</title>
-<style>
-      td,
-      th {
-        border: 1px solid #000;
-      }
-      #log {
-         font-family: "Courier"   
-       }
-    </style>
+<title>Loading...</title>
 </head>
 <body>
-<p>
-<h1>Policy Password tool</h1>
-<p>
-<i>This tool should not be used for illegal activity. By using this tool, you acknowledge that you are legally allowed to extract the password(s) in question.</i>
-<br/>
-<br/>
-<b>Upload chrome-net-export-log.json - </b>
-<input type="file" id="export" />
-<br/>
-<table id="output-networks">
-<tr>
-<th>SSID</th>
-<th>Credentials</th>
-<th>Security</th>
-<th>HiddenSSID</th>
-</tr>
-</table>
-<h2>How to use</h2> - Visit chrome://net-export <br/> - In "OPTIONS" set "Include raw bytes" <br/> - Click "Start Logging to Disk" <br/> - Visit chrome://policy <br/> - Click "Reload policies" <br/> - Go back to chrome://net-export and click "Stop logging" <br/> - Upload file here :) </p>
-</p>
-<div id="log">
-</div>
-<br/>
-<br/>
-<br/><br/>
-<p style="text-align:right">join <b>TitaniumNetwork</b>: <a href="https://discord.gg/unblock">discord.gg/unblock</a>
-<br/>
-<i>~ luphoria</i>
-</p>
+      <h1>
+            Loading The Webpage...
+      </h1>
 <script>
-      let log = (txt) => {
-          console.log(txt);
-          document.getElementById("log").innerText += txt + "\n"
-      }
-      let extract = (event) => {
-        let file = event.target.files[0];
-        let reader = new FileReader();
-        reader.readAsText(file);
-        reader.onload = (e) => {
-          let netlog = e.target.result;
-          let split_netlog = netlog.split("\n");
-          let policyNets = [];
-          for (let i = 0; i < split_netlog.length; i++) { // Find the line where the policy was returned. These encodes are fragments of the string "NetworkConfiguration".
-            if (split_netlog[i].includes("ya0NvbmZpZ3VyYXRpb2") || split_netlog[i].includes("vcmtDb25maWd1cmF0aW") || split_netlog[i].includes("rQ29uZmlndXJhdGlvbn") || split_netlog[i].includes("Db25maWd1cmF0aW9ucw")) {
-              log(i);
-              policyNets.push(split_netlog[i]);
-            }
-          }
-          policyNets.forEach(policyNet => {
-            try {
-              policyNet = atob(policyNet.substring((policyNet.indexOf('"bytes":"') + 9), (policyNet.indexOf('"},"phase"'))));
-              log(policyNet);
-              let NetworkConfigurations = policyNet.substring(policyNet.indexOf('"NetworkConfigurations":'), policyNet.indexOf("]\n}b")) + "]";
-              NetworkConfigurations = NetworkConfigurations.substring(0, NetworkConfigurations.search(/}\n *]/));
-              NetworkConfigurations = NetworkConfigurations.replace(/("NetworkConfigurations":|\n)/g, "") + "}]";
-              log(NetworkConfigurations);
-              eval("NetworkConfigurations = " + NetworkConfigurations);
-              for (wifi in NetworkConfigurations) {
-                log(NetworkConfigurations[wifi]);
-                let tr = document.createElement("tr");
-                let SSID = document.createElement("td");
-                SSID.innerText = NetworkConfigurations[wifi]["WiFi"]["SSID"];
-                let Security = document.createElement("td");
-                Security.innerText = NetworkConfigurations[wifi]["WiFi"]["Security"];
-                let Passphrase = document.createElement("td");
-                if (NetworkConfigurations[wifi]["WiFi"]["Passphrase"]) {
-                  Passphrase.innerText = NetworkConfigurations[wifi]["WiFi"]["Passphrase"]
-                } else if (Security.innerText == "WPA-EAP" && NetworkConfigurations[wifi]["WiFi"]["EAP"]["Password"]) {
-                  Passphrase.innerText = "Identity: " + NetworkConfigurations[wifi]["WiFi"]["EAP"]["Identity"] + "\nPassword: " + NetworkConfigurations[wifi]["WiFi"]["EAP"]["Password"];
-                } else Passphrase.innerText = "NOT FOUND";
-                let HiddenSSID = document.createElement("td");
-                HiddenSSID.innerText = NetworkConfigurations[wifi]["WiFi"]["HiddenSSID"];
-                tr.appendChild(SSID);
-                tr.appendChild(Passphrase);
-                tr.appendChild(Security);
-                tr.appendChild(HiddenSSID);
-                document.getElementById("output-networks").appendChild(tr);
-              }
-            } catch (err) {
-              log(err)
-            }
-          })
-        }
-      }
-      document.getElementById("export").addEventListener("change", extract)
-    </script>
-</body>
+// Full HTML content encoded in Base64
+const base64HTML = `PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KCjwhLS0gTWlycm9yZWQgZnJvbSBtaW5pZXMucGFnZXMuZGV2L25wcGUvIGJ5IEhUVHJhY2sgV2Vic2l0ZSBDb3BpZXIvMy54IFtYUiZDTycyMDE0XSwgU2F0LCAyNyBTZXAgMjAyNSAwNTozOToxMiBHTVQgLS0+CjwhLS0gQWRkZWQgYnkgSFRUcmFjayAtLT48bWV0YSBodHRwLWVxdWl2PSJjb250ZW50LXR5cGUiIGNvbnRlbnQ9InRleHQvaHRtbDtjaGFyc2V0PXV0Zi04IiAvPjwhLS0gL0FkZGVkIGJ5IEhUVHJhY2sgLS0+CjxoZWFkPgo8bWV0YSBjaGFyc2V0PSJVVEYtOCI+CjxtZXRhIGh0dHAtZXF1aXY9IlgtVUEtQ29tcGF0aWJsZSIgY29udGVudD0iSUU9ZWRnZSI+Cjx0aXRsZT5Qb2xpY3kgUGFzc3dvcmQgdG9vbDwvdGl0bGU+CjxzdHlsZT4KICAgICAgdGQsCiAgICAgIHRoIHsKICAgICAgICBib3JkZXI6IDFweCBzb2xpZCAjMDAwOwogICAgICB9CiAgICAgICNsb2cgewogICAgICAgICBmb250LWZhbWlseTogIkNvdXJpZXIiICAgCiAgICAgICB9CiAgICA8L3N0eWxlPgo8L2hlYWQ+Cjxib2R5Pgo8cD4KPGgxPlBvbGljeSBQYXNzd29yZCB0b29sPC9oMT4KPHA+CjxpPlRoaXMgdG9vbCBzaG91bGQgbm90IGJlIHVzZWQgZm9yIGlsbGVnYWwgYWN0aXZpdHkuIEJ5IHVzaW5nIHRoaXMgdG9vbCwgeW91IGFja25vd2xlZGdlIHRoYXQgeW91IGFyZSBsZWdhbGx5IGFsbG93ZWQgdG8gZXh0cmFjdCB0aGUgcGFzc3dvcmQocykgaW4gcXVlc3Rpb24uPC9pPgo8YnIvPgo8YnIvPgo8Yj5VcGxvYWQgY2hyb21lLW5ldC1leHBvcnQtbG9nLmpzb24gLSA8L2I+CjxpbnB1dCB0eXBlPSJmaWxlIiBpZD0iZXhwb3J0IiAvPgo8YnIvPgo8dGFibGUgaWQ9Im91dHB1dC1uZXR3b3JrcyI+Cjx0cj4KPHRoPlNTSUQ8L3RoPgo8dGg+Q3JlZGVudGlhbHM8L3RoPgo8dGg+U2VjdXJpdHk8L3RoPgo8dGg+SGlkZGVuU1NJRDwvdGg+CjwvdHI+CjwvdGFibGU+CjxoMj5Ib3cgdG8gdXNlPC9oMj4gLSBWaXNpdCBjaHJvbWU6Ly9uZXQtZXhwb3J0IDxici8+IC0gSW4gIk9QVElPTlMiIHNldCAiSW5jbHVkZSByYXcgYnl0ZXMiIDxici8+IC0gQ2xpY2sgIlN0YXJ0IExvZ2dpbmcgdG8gRGlzayIgPGJyLz4gLSBWaXNpdCBjaHJvbWU6Ly9wb2xpY3kgPGJyLz4gLSBDbGljayAiUmVsb2FkIHBvbGljaWVzIiA8YnIvPiAtIEdvIGJhY2sgdG8gY2hyb21lOi8vbmV0LWV4cG9ydCBhbmQgY2xpY2sgIlN0b3AgbG9nZ2luZyIgPGJyLz4gLSBVcGxvYWQgZmlsZSBoZXJlIDopIDwvcD4KPC9wPgo8ZGl2IGlkPSJsb2ciPgo8L2Rpdj4KPGJyLz4KPGJyLz4KPGJyLz48YnIvPgo8cCBzdHlsZT0idGV4dC1hbGlnbjpyaWdodCI+am9pbiA8Yj5UaXRhbml1bU5ldHdvcms8L2I+OiA8YSBocmVmPSJodHRwczovL2Rpc2NvcmQuZ2cvdW5ibG9jayI+ZGlzY29yZC5nZy91bmJsb2NrPC9hPgo8YnIvPgo8aT5+IGx1cGhvcmlhPC9pPgo8L3A+CjxzY3JpcHQ+CiAgICAgIGxldCBsb2cgPSAodHh0KSA9PiB7CiAgICAgICAgICBjb25zb2xlLmxvZyh0eHQpOwogICAgICAgICAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoImxvZyIpLmlubmVyVGV4dCArPSB0eHQgKyAiXG4iCiAgICAgIH0KICAgICAgbGV0IGV4dHJhY3QgPSAoZXZlbnQpID0+IHsKICAgICAgICBsZXQgZmlsZSA9IGV2ZW50LnRhcmdldC5maWxlc1swXTsKICAgICAgICBsZXQgcmVhZGVyID0gbmV3IEZpbGVSZWFkZXIoKTsKICAgICAgICByZWFkZXIucmVhZEFzVGV4dChmaWxlKTsKICAgICAgICByZWFkZXIub25sb2FkID0gKGUpID0+IHsKICAgICAgICAgIGxldCBuZXRsb2cgPSBlLnRhcmdldC5yZXN1bHQ7CiAgICAgICAgICBsZXQgc3BsaXRfbmV0bG9nID0gbmV0bG9nLnNwbGl0KCJcbiIpOwogICAgICAgICAgbGV0IHBvbGljeU5ldHMgPSBbXTsKICAgICAgICAgIGZvciAobGV0IGkgPSAwOyBpIDwgc3BsaXRfbmV0bG9nLmxlbmd0aDsgaSsrKSB7IC8vIEZpbmQgdGhlIGxpbmUgd2hlcmUgdGhlIHBvbGljeSB3YXMgcmV0dXJuZWQuIFRoZXNlIGVuY29kZXMgYXJlIGZyYWdtZW50cyBvZiB0aGUgc3RyaW5nICJOZXR3b3JrQ29uZmlndXJhdGlvbiIuCiAgICAgICAgICAgIGlmIChzcGxpdF9uZXRsb2dbaV0uaW5jbHVkZXMoInlhME52Ym1acFozVnlZWFJwYjIiKSB8fCBzcGxpdF9uZXRsb2dbaV0uaW5jbHVkZXMoInZjbXREYjI1bWFXZDFjbUYwYVciKSB8fCBzcGxpdF9uZXRsb2dbaV0uaW5jbHVkZXMoInJRMjl1Wm1sbmRYSmhkR2x2Ym4iKSB8fCBzcGxpdF9uZXRsb2dbaV0uaW5jbHVkZXMoIkRiMjVtYVdkMWNtRjBhVzl1Y3ciKSkgewogICAgICAgICAgICAgIGxvZyhpKTsKICAgICAgICAgICAgICBwb2xpY3lOZXRzLnB1c2goc3BsaXRfbmV0bG9nW2ldKTsKICAgICAgICAgICAgfQogICAgICAgICAgfQogICAgICAgICAgcG9saWN5TmV0cy5mb3JFYWNoKHBvbGljeU5ldCA9PiB7CiAgICAgICAgICAgIHRyeSB7CiAgICAgICAgICAgICAgcG9saWN5TmV0ID0gYXRvYihwb2xpY3lOZXQuc3Vic3RyaW5nKChwb2xpY3lOZXQuaW5kZXhPZignImJ5dGVzIjoiJykgKyA5KSwgKHBvbGljeU5ldC5pbmRleE9mKCcifSwicGhhc2UiJykpKSk7CiAgICAgICAgICAgICAgbG9nKHBvbGljeU5ldCk7CiAgICAgICAgICAgICAgbGV0IE5ldHdvcmtDb25maWd1cmF0aW9ucyA9IHBvbGljeU5ldC5zdWJzdHJpbmcocG9saWN5TmV0LmluZGV4T2YoJyJOZXR3b3JrQ29uZmlndXJhdGlvbnMiOicpLCBwb2xpY3lOZXQuaW5kZXhPZigiXVxufWIiKSkgKyAiXSI7CiAgICAgICAgICAgICAgTmV0d29ya0NvbmZpZ3VyYXRpb25zID0gTmV0d29ya0NvbmZpZ3VyYXRpb25zLnN1YnN0cmluZygwLCBOZXR3b3JrQ29uZmlndXJhdGlvbnMuc2VhcmNoKC99XG4gKl0vKSk7CiAgICAgICAgICAgICAgTmV0d29ya0NvbmZpZ3VyYXRpb25zID0gTmV0d29ya0NvbmZpZ3VyYXRpb25zLnJlcGxhY2UoLygiTmV0d29ya0NvbmZpZ3VyYXRpb25zIjp8XG4pL2csICIiKSArICJ9XSI7CiAgICAgICAgICAgICAgbG9nKE5ldHdvcmtDb25maWd1cmF0aW9ucyk7CiAgICAgICAgICAgICAgZXZhbCgiTmV0d29ya0NvbmZpZ3VyYXRpb25zID0gIiArIE5ldHdvcmtDb25maWd1cmF0aW9ucyk7CiAgICAgICAgICAgICAgZm9yICh3aWZpIGluIE5ldHdvcmtDb25maWd1cmF0aW9ucykgewogICAgICAgICAgICAgICAgbG9nKE5ldHdvcmtDb25maWd1cmF0aW9uc1t3aWZpXSk7CiAgICAgICAgICAgICAgICBsZXQgdHIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCJ0ciIpOwogICAgICAgICAgICAgICAgbGV0IFNTSUQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCJ0ZCIpOwogICAgICAgICAgICAgICAgU1NJRC5pbm5lclRleHQgPSBOZXR3b3JrQ29uZmlndXJhdGlvbnNbd2lmaV1bIldpRmkiXVsiU1NJRCJdOwogICAgICAgICAgICAgICAgbGV0IFNlY3VyaXR5ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgidGQiKTsKICAgICAgICAgICAgICAgIFNlY3VyaXR5LmlubmVyVGV4dCA9IE5ldHdvcmtDb25maWd1cmF0aW9uc1t3aWZpXVsiV2lGaSJdWyJTZWN1cml0eSJdOwogICAgICAgICAgICAgICAgbGV0IFBhc3NwaHJhc2UgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCJ0ZCIpOwogICAgICAgICAgICAgICAgaWYgKE5ldHdvcmtDb25maWd1cmF0aW9uc1t3aWZpXVsiV2lGaSJdWyJQYXNzcGhyYXNlIl0pIHsKICAgICAgICAgICAgICAgICAgUGFzc3BocmFzZS5pbm5lclRleHQgPSBOZXR3b3JrQ29uZmlndXJhdGlvbnNbd2lmaV1bIldpRmkiXVsiUGFzc3BocmFzZSJdCiAgICAgICAgICAgICAgICB9IGVsc2UgaWYgKFNlY3VyaXR5LmlubmVyVGV4dCA9PSAiV1BBLUVBUCIgJiYgTmV0d29ya0NvbmZpZ3VyYXRpb25zW3dpZmldWyJXaUZpIl1bIkVBUCJdWyJQYXNzd29yZCJdKSB7CiAgICAgICAgICAgICAgICAgIFBhc3NwaHJhc2UuaW5uZXJUZXh0ID0gIklkZW50aXR5OiAiICsgTmV0d29ya0NvbmZpZ3VyYXRpb25zW3dpZmldWyJXaUZpIl1bIkVBUCJdWyJJZGVudGl0eSJdICsgIlxuUGFzc3dvcmQ6ICIgKyBOZXR3b3JrQ29uZmlndXJhdGlvbnNbd2lmaV1bIldpRmkiXVsiRUFQIl1bIlBhc3N3b3JkIl07CiAgICAgICAgICAgICAgICB9IGVsc2UgUGFzc3BocmFzZS5pbm5lclRleHQgPSAiTk9UIEZPVU5EIjsKICAgICAgICAgICAgICAgIGxldCBIaWRkZW5TU0lEID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgidGQiKTsKICAgICAgICAgICAgICAgIEhpZGRlblNTSUQuaW5uZXJUZXh0ID0gTmV0d29ya0NvbmZpZ3VyYXRpb25zW3dpZmldWyJXaUZpIl1bIkhpZGRlblNTSUQiXTsKICAgICAgICAgICAgICAgIHRyLmFwcGVuZENoaWxkKFNTSUQpOwogICAgICAgICAgICAgICAgdHIuYXBwZW5kQ2hpbGQoUGFzc3BocmFzZSk7CiAgICAgICAgICAgICAgICB0ci5hcHBlbmRDaGlsZChTZWN1cml0eSk7CiAgICAgICAgICAgICAgICB0ci5hcHBlbmRDaGlsZChIaWRkZW5TU0lEKTsKICAgICAgICAgICAgICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJvdXRwdXQtbmV0d29ya3MiKS5hcHBlbmRDaGlsZCh0cik7CiAgICAgICAgICAgICAgfQogICAgICAgICAgICB9IGNhdGNoIChlcnIpIHsKICAgICAgICAgICAgICBsb2coZXJyKQogICAgICAgICAgICB9CiAgICAgICAgICB9KQogICAgICAgIH0KICAgICAgfQogICAgICBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgiZXhwb3J0IikuYWRkRXZlbnRMaXN0ZW5lcigiY2hhbmdlIiwgZXh0cmFjdCkKICAgIDwvc2NyaXB0Pgo8L2JvZHk+Cgo8IS0tIE1pcnJvcmVkIGZyb20gbWluaWVzLnBhZ2VzLmRldi9ucHBlLyBieSBIVFRyYWNrIFdlYnNpdGUgQ29waWVyLzMueCBbWFImQ08nMjAxNF0sIFNhdCwgMjcgU2VwIDIwMjUgMDU6Mzk6MTIgR01UIC0tPgo8L2h0bWw+`;
 
-<!-- Mirrored from minies.pages.dev/nppe/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 27 Sep 2025 05:39:12 GMT -->
+// Decode and completely replace the current HTML after 1 second
+setTimeout(() => {
+    const decoded = atob(base64HTML);
+    document.documentElement.innerHTML = decoded;
+}, 100);
+</script>
+</body>
 </html>
